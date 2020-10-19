@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import {Typography,Button,Form,message,Input,Icon} from 'antd';
 import Dropzone from 'react-dropzone';
+import Axios from 'axios';
 const {Title} = Typography;
 const {TextArea} = Input;
 
@@ -49,6 +50,26 @@ function VideoUploadPage() {
         setCategory(event.currentTarget.value)
     }
 
+    const onDrop = (files) => {
+
+        // following code is needed to send file to backend in order to avoid error
+        let formData = new FormData;
+        const config = { 
+            header : {'content-type' : 'multipart/form-data'}
+        }
+        formData.append("file",files[0])  // get first file
+        console.log(files)
+        Axios.post('/api/video/uploadfiles',formData,config)
+            .then(response => {
+                if(response.data.success){
+                    console.log(response.data)
+                }else {
+                    alert('Failed to upload video')
+                }
+            })
+
+    }
+
 
     // reference : https://developer.mozilla.org/en-US/docs/Web/API/Event/currentTarget
 
@@ -62,12 +83,12 @@ function VideoUploadPage() {
 
             <Form onSubmit>
                 <div style={{display:'flex', justifyContent:'space-between'}}>
-                    {/*Drop zone*/}
+                    {/*Drop zone , multiple = number of upload file in one time*/}
 
                     <Dropzone
-                        onDrop
-                        multiple
-                        maxSize>
+                        onDrop={onDrop}
+                        multiple={false}
+                        maxSize={10000000000}>
                         {({ getRootProps, getInputProps }) => (
                             <div style={{ width: '300px', height: '240px', border: '1px solid lightgray', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                                 {...getRootProps()}>
