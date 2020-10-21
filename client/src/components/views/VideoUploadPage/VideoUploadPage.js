@@ -33,6 +33,7 @@ function VideoUploadPage(props) {
     const [ThumbnailPath, setThumbnailPath] = useState("")
 
 
+    //=====OnChange function=====///
     const onTitleChange = (event) => { 
         //console.log(event.currentTarget)
         setVideoTitle(event.currentTarget.value)
@@ -67,7 +68,7 @@ function VideoUploadPage(props) {
             .then(response => {
                 if(response.data.success){
                     console.log(response.data)
-
+                    setFilePath(response.data.url)
                     let variable = { 
                         url:response.data.url,
                         fileName:response.data.fileName
