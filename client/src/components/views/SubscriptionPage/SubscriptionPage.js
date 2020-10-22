@@ -6,26 +6,29 @@ import moment from 'moment'
 const {Title} = Typography;
 const {Meta} = Card;
 
-function LandingPage() {
-
+function SubscriptionPage() {
 
     const [Video, setVideo] = useState([])
 
 
     useEffect(() => {
 
-        Axios.get('/api/video/getVideo')
+        const subscriptionVariables ={ 
+            userForm : localStorage.getItem("userId")
+        }
+
+        Axios.post('/api/video/getSubscriptionVideos',subscriptionVariables)
         .then(response =>{
             if(response.data.success){
                 console.log(response.data)
-                setVideo(response.data.video)
+                setVideo(response.data.Videos)
             }else{
                 alert('Fail to get video')
             }
         })
       
     }, [])
-    // [] = when DOM is updated work just one time, if [] not exist then work everytime
+
 
     const renderCards = Video.map((video, index) => {
 
@@ -34,7 +37,7 @@ function LandingPage() {
         // defautl value of duration is second
 
         return <Col lg={6} md={8} xs={24}>
-            <div style={{ position: 'relative' }}>
+            <div key={index} style={{ position: 'relative' }}>
                 <a href={`/video/${video._id}`} >
                 <img style={{ width: '100%' }} alt="thumbnail" src={`http://localhost:5000/${video.thumbnail}`} />
                 <div className=" duration"
@@ -64,7 +67,7 @@ function LandingPage() {
 
     return (
         <div style={{ width: '85%', margin: '3rem auto' }}>
-            <Title level={2} > Recommended </Title>
+            <Title level={2} > My Subscription </Title>
             <hr />
 
             <Row gutter={[16,16]}>
@@ -74,4 +77,5 @@ function LandingPage() {
     )
 }
 
-export default LandingPage
+export default SubscriptionPage
+

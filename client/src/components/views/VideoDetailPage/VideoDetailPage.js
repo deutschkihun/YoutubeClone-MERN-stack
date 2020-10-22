@@ -2,6 +2,8 @@ import React,{useEffect,useState} from 'react'
 import {Row,Col,Avatar , List} from 'antd';
 import Axios from 'axios';
 import SideVideo from './SideVideo';
+import { UserOutlined } from '@ant-design/icons';
+import Subscribe from './Subscribe';
 
 function VideoDetailPage(props) {
     
@@ -31,10 +33,17 @@ function VideoDetailPage(props) {
                         <video style={{ width: '100%' }} src={`http://localhost:5000/${VideoDetail.filePath}`} controls></video>
 
                         <List.Item
-                            actions
+                            actions={    [<Subscribe userTo={VideoDetail.writer._id} 
+                                                     userForm={localStorage.getItem('userId')}
+                                         />]}     
                         >
                             <List.Item.Meta
-                                avatar={<Avatar src={VideoDetail.writer && VideoDetail.writer.image} />}
+                                avatar={
+                                <Avatar style={{backgroundColor: '#87d068'}}
+                                        icon={<UserOutlined />}
+                                        src={VideoDetail.writer && VideoDetail.writer.image} 
+                                        />
+                                    }
                                 title={<a href="https://ant.design">Title : {VideoDetail.title}</a>}
                                 description={<a href="https://ant.design"> Description : {VideoDetail.description}</a>}
                             />
