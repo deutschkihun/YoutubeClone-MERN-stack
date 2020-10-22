@@ -48,12 +48,13 @@ function Subscribe(props) {
         }
 
        
-        if(!Subscribed){
+        if(Subscribed){
+            // when we are already subscribed
             Axios.post('/api/subscribe/unSubscribe',subscribedVariable)
             .then(response => {
                 if(response.data.success){
                     console.log(response.data)
-                    setSubscribeNumber(SubscribeNumber+1)
+                    setSubscribeNumber(SubscribeNumber-1)
                     setSubscribed(!Subscribed)
                 } else {
                     alert('Fail to remove from subscribe list')
@@ -62,10 +63,11 @@ function Subscribe(props) {
         } else {
         
         Axios.post('/api/subscribe/addSubscribe',subscribedVariable)
+        // when we are not subscribed yet
         .then(response => {
             if(response.data.success){
                 console.log(response.data)
-                setSubscribeNumber(SubscribeNumber-1)
+                setSubscribeNumber(SubscribeNumber+1)
                 setSubscribed(!Subscribed)
             } else {
                 alert('Fail to add into subscribe list')
