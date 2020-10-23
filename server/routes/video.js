@@ -136,19 +136,25 @@ router.post('/getVideoDetail', (req,res) => {
 
  
 router.post('/getSubscriptionVideos', (req,res) => {
-    
+
+    // By using my id(userId from localstorage get subscribedUser)
     Subscriber.find({userForm : req.body.userForm})
-        .exec((err,subscribeInfo) => {
+        .exec((err,subscriberInfo) => {
             if(err) return res.status(400).send(err);
 
+            // In subscribeInfo we can find the subscribedUser information 
+            // push this information inth array called subscribedUser
             let subscribedUser = [];
 
-            subscribeInfo.map((subscriber, i) => {
+            subscriberInfo.map((subscriber, i) => {
                 subscribedUser.push(subscriber.userTo);
             })
 
+            // get this subscribedUser 
             Video.find({ writer : { $in: subscribedUser } })
-            // req.body._id error ! 
+            // {writer : {req.body._id} } is wriong  (only for one)
+            // because subscribedUser can be more than one.(It mean more than one userForm subscribe userTo)
+            // $in can get more than one information 
                 .populate('writer')
                 .exec((err,Videos) => {
                     if(err) return res.status(400).send(err)

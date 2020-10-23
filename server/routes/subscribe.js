@@ -14,8 +14,6 @@ router.post("/subscribeNumber",(req,res) =>{
 })
 
 
-
-
 router.post("/subscribed",(req,res) =>{
     Subscriber.find( {userTo:req.body.userTo,userForm:req.body.userForm})
         .exec((err,subscribe) => {

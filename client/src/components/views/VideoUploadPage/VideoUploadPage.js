@@ -58,7 +58,7 @@ function VideoUploadPage(props) {
     const onDrop = (files) => {
 
         // following code is needed to send file to backend in order to avoid error
-        let formData = new FormData;
+        let formData = new FormData();
         const config = { 
             header : {'content-type' : 'multipart/form-data'}
         }
@@ -96,7 +96,7 @@ function VideoUploadPage(props) {
 
     const onSubmit = (event) => { 
         event.preventDefault();
-        // default prevent 
+        // refresh(default setting) prevent 
 
         const variable = {
             writer: user.userData._id,
