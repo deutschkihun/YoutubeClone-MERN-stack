@@ -5,13 +5,13 @@ import SideVideo from './SideVideo';
 import { UserOutlined } from '@ant-design/icons';
 import Subscribe from './Subscribe';
 import Comment from './Comment';
+import LikeDisLike from './LikeDisLike';
 
 function VideoDetailPage(props) {
     
     const videoId = props.match.params.videoId
     const variable = {videoId: videoId}
-    const [comments, setcomments] = useState("")
-
+    const [CommentLists, setCommentLists] = useState([])
     const [VideoDetail, setVideoDetail] = useState([])
 
     useEffect(() => {
@@ -30,14 +30,25 @@ function VideoDetailPage(props) {
         Axios.post('/api/comments/getComments',variable)
         .then(response => {
             if(response.data.success){
-                console.log(response.data.comments)
-                setcomments(response.data.comments)
+                setCommentLists(response.data.comments)
             }else { 
                 alert('fail to get comment')
             }
         })
 
     }, [])
+
+
+    const refreshfunction = (newComment) => {
+        setCommentLists(CommentLists.concat(newComment))
+    }
+
+    // refreshfucntion helps to update comment and replycomment. 
+    // you can see refreshfunction={refreshfunction} below which is the part of Comment component 
+    // so we can call refreshfunction in Comment.js. 
+    // In Comment.js axios.post we can see props.refreshfunction.(response.data.result)
+    // so these data comes into this method and merge with CommentList (concat function) so that we can refresh the comment 
+    // These method should be defined in Vedetailpage because VideoDetailpage is the parent component of single comment and comment 
 
     if (VideoDetail.writer) {
         console.log(VideoDetail)
@@ -51,7 +62,8 @@ function VideoDetailPage(props) {
                         <video style={{ width: '100%' }} src={`http://localhost:5000/${VideoDetail.filePath}`} controls></video>
 
                         <List.Item
-                            actions={[subscribeButton]}     
+                            actions={[ <LikeDisLike video userId={localStorage.getItem("userId")} 
+                                                         videoId={props.match.params.videoId}/> , subscribeButton]}     
                         >
                             <List.Item.Meta
                                 avatar={
@@ -67,12 +79,11 @@ function VideoDetailPage(props) {
                         </List.Item>
 
                         {/*Comment */}                  
-                        <Comment CommentList={comments} videoId={videoId}/>
+                        <Comment refreshfunction={refreshfunction} CommentLists={CommentLists} videoId={videoId}/>
 
                     </div>
                 </Col>
                 <Col lg={6} xs={24}>
-
                     <SideVideo />
 
                 </Col>

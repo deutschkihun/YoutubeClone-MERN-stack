@@ -62,27 +62,30 @@ function VideoUploadPage(props) {
         const config = { 
             header : {'content-type' : 'multipart/form-data'}
         }
-        formData.append("file",files[0])  // get first file
+        formData.append("file",files[0])  // get first file = get only one file 
         console.log(files)
+
         Axios.post('/api/video/uploadfiles',formData,config)
             .then(response => {
                 if(response.data.success){
                     console.log(response.data)
                     setFilePath(response.data.url)
-                    let variable = { 
-                        url:response.data.url,
-                        fileName:response.data.fileName
-                    }
-                    Axios.post('/api/video/thumbnail',variable)
-                        .then(response => {
-                            if(response.data.success){
-                                console.log(response.data)
-                                setDuration(response.data.fileDuration)
-                                setThumbnailPath(response.data.url)
-                            }else { 
-                                alert('Faild to create thumbnail')
-                            }
-                        })
+
+        let variable = { 
+            url:response.data.url,
+            fileName:response.data.fileName
+        }
+
+        Axios.post('/api/video/thumbnail',variable)
+            .then(response => {
+                if(response.data.success){
+                    console.log(response.data)
+                    setDuration(response.data.fileDuration)
+                    setThumbnailPath(response.data.url)
+                }else { 
+                    alert('Fail to create thumbnail')
+                }
+            })
                 }
                 
                 else {
@@ -111,13 +114,12 @@ function VideoUploadPage(props) {
         Axios.post('/api/video/uploadVideo',variable)
             .then(response => {
                 if(response.data.success){
-                    console.log(response.data)
                     message.success("successfully upload video")
                     setTimeout(() =>{
                         props.history.push('/')
                     },3000)
                 }else{
-                    alert('Faild to submit')
+                    alert('Fail to submit')
                 }
             })
     }

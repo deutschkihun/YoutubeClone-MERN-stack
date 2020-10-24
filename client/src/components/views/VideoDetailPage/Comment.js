@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import {useSelector} from 'react-redux'
 import Axios from 'axios';
 import SingleComment from './SingleComment';
+import ReplyComment from './ReplyComment';
 
 function Comment(props) {
-    const videoId = props.videoId // get videoId from parant(VideoDetailPage)
-                                  // If you try to get videoId directly from this part "get params undefined error"
+
     const user = useSelector(state => state.user)  
     const [commentvalue, setcommentvalue] = useState("")
 
@@ -21,20 +21,23 @@ function Comment(props) {
             content : commentvalue,
             writer : user.userData._id, // redux 
             // use localstorage => writer : localstorage.getItem("userId")  
-            videoId : videoId
+            videoId : props.videoId  
+            // get videoId from parant(VideoDetailPage)
+            // If you try to get videoId directly from this part "get params undefined error"
+
+
         }
 
         Axios.post('/api/comments/saveComment',variable)
             .then(response => {
                 if(response.data.success){
-                    console.log(response.data.result)
+                    setcommentvalue("")
+                    props.refreshfunction(response.data.result)
                 }else{
                     alert('Faild to submit')
                 }
             })
     }
-
-
 
     return (
         <div>
@@ -42,11 +45,17 @@ function Comment(props) {
             <p> Replies</p>
             <hr/>
 
-
             {/* Comment Lists*/}
-            {props.CommentList && props.CommentList.map((comment,index) => (
-                <SingleComment comment={comment} key={index} videoId={videoId}/>
-            ))}
+            {console.log('comment list ' ,props.CommentLists)}
+            
+            {props.CommentLists && props.CommentLists.map((comment,index) => (
+                (!comment.responseTo && 
+                    <React.Fragment>
+                         <SingleComment refreshfunction={props.refreshfunction} comment={comment} key={index} videoId={props.videoId}/>
+                         <ReplyComment refreshfunction={props.refreshfunction} parentCommentId={comment._id} videoId={props.videoId}  CommentLists={props.CommentLists} />
+                    </React.Fragment>
+              
+                )))}
 
             {/* Root Comment Form */}
 
