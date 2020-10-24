@@ -57,14 +57,7 @@ function SingleComment(props) {
                         alt="image"/>}
                 content={<p> {props.comment.content}</p>}
             />
-
-{/*     
-        const actions = [
-            <LikeDisLike userId={localStorage.getItem("userId")} commentId={props.comment}/>
-            ,<span>Reply to </span>
-        ] */}
-        
-
+            
         {OpenReply && 
             <form style={{display:'flex'}} onSubmit={onSubmit}>
             <textarea
