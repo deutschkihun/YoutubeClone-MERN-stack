@@ -19,7 +19,7 @@ function VideoDetailPage(props) {
         Axios.post('/api/video/getVideoDetail',variable)
             .then(response => {
                 if(response.data.success){
-                    console.log(response.data)
+                    //console.log(response.data.videoDetail)
                     setVideoDetail(response.data.videoDetail)
                 }else{
                     alert('Fail to get video from db')

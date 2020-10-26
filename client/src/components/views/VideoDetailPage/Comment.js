@@ -54,7 +54,9 @@ function Comment(props) {
                          <SingleComment refreshfunction={props.refreshfunction} comment={comment} key={index} videoId={props.videoId}/>
                          <ReplyComment refreshfunction={props.refreshfunction} parentCommentId={comment._id} videoId={props.videoId}  CommentLists={props.CommentLists} />
                     </React.Fragment>
-              
+              // when user open the page they can see first singlecomment not replyed commment
+              // if they click view replycomment then show comment on it 
+              // so in the explict rendering we are trying to get only comment with non responseTo = !comment.responseTo 
                 )))}
 
             {/* Root Comment Form */}
