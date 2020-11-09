@@ -3,6 +3,7 @@ import {Comment, Avatar,Button,Input} from 'antd';
 import Axios from 'axios';
 import {useSelector} from 'react-redux'
 import LikeDisLike from './LikeDisLike';
+const {TextArea} = Input;
 
 function SingleComment(props) {
 
@@ -19,7 +20,7 @@ function SingleComment(props) {
         <span onClick={onClickReplayOpen} key="comment-basic-reply-to">Reply to</span>
     ]
 
-    const onHandleChange = (event) => {
+    const handleClick = (event) => {
         setcommentValue(event.currentTarget.value)
     }
 
@@ -59,15 +60,18 @@ function SingleComment(props) {
             />
             
         {OpenReply && 
-            <form style={{display:'flex'}} onSubmit={onSubmit}>
-            <textarea
+            <form onSubmit={onSubmit}>
+            <TextArea 
                 style={{ width: '100%', borderRadius:'5px'}}
-                onChange={onHandleChange}
+                onChange={handleClick}
                 value={commentValue}
                 placeholder="write your comment"
+                rows={4} 
             />
-            <br />
-            <Button style={{ width:'20%', height:'52px'}} onClick={onSubmit} >Submit</Button>
+            <br/>
+            <Button style={{ width:'10%', height:'35px',marginTop:'0.5rem',
+                             backgroundColor:'#1890ff',color:'white',fontSize:'16px'}} onClick={onSubmit}>Submit</Button>            
+             <br/><br/><br/><br/>                 
             </form>
         }
         </div>
