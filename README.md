@@ -1,19 +1,25 @@
 Hello
 
+How to use this project file
 
-This project is about clone coding for youtube web page 
+1. use git clone or download this file on your local pc
+2. open this file with editor (ex :VScode,sublimeText,Atom.... whatever you want)
+3. add dev.js in server -> config folder. (this folder is for db configuration folder)
+4. add mongo db connection URL (check exmaple picture name "dev.js" below)
+5. compile "npm install" in terminal for backend dependencies
+6. cd client -> compile "npm install" in terminal for frontend dependencies
+7. compile "npm run dev" it will run backend and frontend at the same time
 
+This project contains following functionalities
 
-1. (Recommended) use git clone to copy this project in your IDE, you can download and add your file but "git clone" is definitely faster than that.
-2. add dev.js in folder : server -> config. 
-3. In this js file add your mongoDB URL (include ID and password)
-4. Do "npm install" for backend dependencies
-5. go into "client folder" and install "npm install"
-6. go into Folder : client -> Config.js and add your api key
-7. compile this project in your terminal with "npm run dev", it can compile backend and frontend together !! 
+1. video upload page
+2. video recommendation page
+3. login / logout
+4. subscription
+5. comment
+6. like & dislike button
 
-
-#### Demo 
+#### Demo
 
 ![Demo 1](https://user-images.githubusercontent.com/45092135/96884930-5e941880-1482-11eb-974e-2e7b0c9760c9.JPG)
 ![Demo 2](https://user-images.githubusercontent.com/45092135/96884932-5f2caf00-1482-11eb-8be6-f4f5dccd03b1.JPG)
