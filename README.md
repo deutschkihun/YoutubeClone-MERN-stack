@@ -1,6 +1,6 @@
 Hello
 
-How to use this project file
+**How to use this project file**
 
 1. use git clone or download this file on your local pc
 2. open this file with editor (ex :VScode,sublimeText,Atom.... whatever you want)
@@ -10,7 +10,7 @@ How to use this project file
 6. cd client -> compile "npm install" in terminal for frontend dependencies
 7. compile "npm run dev" it will run backend and frontend at the same time
 
-This project contains following functionalities
+**This project contains following functionalities**
 
 1. video upload page
 2. video recommendation page
