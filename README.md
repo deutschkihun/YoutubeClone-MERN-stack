@@ -19,6 +19,14 @@ Hello
 5. comment
 6. like & dislike button
 
+### dev.js & mongo db setting
+
+![image](https://user-images.githubusercontent.com/45092135/99144619-a401cb00-2667-11eb-8bfa-b542c68a51cd.png)
+
+- in this file you can see <username> and <password> area.
+- here you need to add your username and password of database access
+- for that first you have to create mongo db account -> create new projects -> database access -> add new database user
+
 #### Demo
 
 ![Demo 1](https://user-images.githubusercontent.com/45092135/96884930-5e941880-1482-11eb-974e-2e7b0c9760c9.JPG)
